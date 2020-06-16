@@ -3,15 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiffCloseTwoSymbols", "DiffCloseTwoSymbols\DiffCloseTwoSymbols.csproj", "{8172EAFB-A8BF-4ED2-85CD-6421043C86DB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{07CF3428-0449-4381-BD78-A1AB98F2BD9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindPosition", "FindPosition\FindPosition.csproj", "{1C008902-42FC-42EF-8EDF-3447E291CD6D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Indicators", "Indicators", "{6C67A032-F984-45CE-ABED-7BFDF1846F70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetCursorPositionOnChart", "GetCursorPositionOnChart\GetCursorPositionOnChart.csproj", "{C5837394-F8ED-4B44-BD24-59648E13972F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiffCloseTwoSymbols", "Examples\DiffCloseTwoSymbols\DiffCloseTwoSymbols.csproj", "{8172EAFB-A8BF-4ED2-85CD-6421043C86DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModifyProductType", "ModifyProductType\ModifyProductType.csproj", "{C9C6BBDB-7539-40A9-95B4-2601415F8758}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindPosition", "Examples\FindPosition\FindPosition.csproj", "{1C008902-42FC-42EF-8EDF-3447E291CD6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseExternalIndicator", "UseExternalIndicator\UseExternalIndicator.csproj", "{E6D01EF7-7E05-4104-8131-19671D028ED2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetCursorPositionOnChart", "Examples\GetCursorPositionOnChart\GetCursorPositionOnChart.csproj", "{C5837394-F8ED-4B44-BD24-59648E13972F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModifyProductType", "Examples\ModifyProductType\ModifyProductType.csproj", "{C9C6BBDB-7539-40A9-95B4-2601415F8758}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseExternalIndicator", "Examples\UseExternalIndicator\UseExternalIndicator.csproj", "{E6D01EF7-7E05-4104-8131-19671D028ED2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fractals", "Indicators\Fractals\Fractals.csproj", "{2753499F-0DC6-4EF1-B0FC-49FA77A2DB9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,9 +45,21 @@ Global
 		{E6D01EF7-7E05-4104-8131-19671D028ED2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6D01EF7-7E05-4104-8131-19671D028ED2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6D01EF7-7E05-4104-8131-19671D028ED2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2753499F-0DC6-4EF1-B0FC-49FA77A2DB9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2753499F-0DC6-4EF1-B0FC-49FA77A2DB9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2753499F-0DC6-4EF1-B0FC-49FA77A2DB9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2753499F-0DC6-4EF1-B0FC-49FA77A2DB9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8172EAFB-A8BF-4ED2-85CD-6421043C86DB} = {07CF3428-0449-4381-BD78-A1AB98F2BD9D}
+		{1C008902-42FC-42EF-8EDF-3447E291CD6D} = {07CF3428-0449-4381-BD78-A1AB98F2BD9D}
+		{C5837394-F8ED-4B44-BD24-59648E13972F} = {07CF3428-0449-4381-BD78-A1AB98F2BD9D}
+		{C9C6BBDB-7539-40A9-95B4-2601415F8758} = {07CF3428-0449-4381-BD78-A1AB98F2BD9D}
+		{E6D01EF7-7E05-4104-8131-19671D028ED2} = {07CF3428-0449-4381-BD78-A1AB98F2BD9D}
+		{2753499F-0DC6-4EF1-B0FC-49FA77A2DB9B} = {6C67A032-F984-45CE-ABED-7BFDF1846F70}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5B622A21-1A5C-4982-B4D6-72F492386BC1}
