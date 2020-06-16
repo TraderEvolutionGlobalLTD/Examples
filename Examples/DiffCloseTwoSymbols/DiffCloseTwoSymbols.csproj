@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E6D01EF7-7E05-4104-8131-19671D028ED2}</ProjectGuid>
+    <ProjectGuid>{8172EAFB-A8BF-4ED2-85CD-6421043C86DB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UseExternalIndicator</RootNamespace>
-    <AssemblyName>UseExternalIndicator</AssemblyName>
+    <RootNamespace>DiffCloseTwoSymbols</RootNamespace>
+    <AssemblyName>DiffCloseTwoSymbols</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -34,6 +34,9 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Common, Version=4.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Drawing.Common.4.7.0\lib\net461\System.Drawing.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,15 +44,18 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="TradeApi">
-      <HintPath>..\Dlls\TradeApi.dll</HintPath>
+      <HintPath>..\..\Dlls\TradeApi.dll</HintPath>
     </Reference>
     <Reference Include="TradeLogic">
-      <HintPath>..\Dlls\TradeLogic.dll</HintPath>
+      <HintPath>..\..\Dlls\TradeLogic.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UseExternalIndicatorExample.cs" />
+    <Compile Include="DiffClose.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

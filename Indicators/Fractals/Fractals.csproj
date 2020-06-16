@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1C008902-42FC-42EF-8EDF-3447E291CD6D}</ProjectGuid>
+    <ProjectGuid>{2753499F-0DC6-4EF1-B0FC-49FA77A2DB9B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FindPosition</RootNamespace>
-    <AssemblyName>FindPosition</AssemblyName>
+    <RootNamespace>Fractals</RootNamespace>
+    <AssemblyName>Fractals</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,14 +41,14 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="TradeApi">
-      <HintPath>..\Dlls\TradeApi.dll</HintPath>
+      <HintPath>..\..\Dlls\TradeApi.dll</HintPath>
     </Reference>
     <Reference Include="TradeLogic">
-      <HintPath>..\Dlls\TradeLogic.dll</HintPath>
+      <HintPath>..\..\Dlls\TradeLogic.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FindPositionByOpenOrderId.cs" />
+    <Compile Include="Fractals.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
