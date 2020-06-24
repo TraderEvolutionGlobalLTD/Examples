@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseExternalIndicator", "Exa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fractals", "Indicators\Fractals\Fractals.csproj", "{2753499F-0DC6-4EF1-B0FC-49FA77A2DB9B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrendLineExample", "Examples\TrendLineExample\TrendLineExample.csproj", "{39D3CE96-C5D7-4C3B-8EEF-C95A2913754C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{2753499F-0DC6-4EF1-B0FC-49FA77A2DB9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2753499F-0DC6-4EF1-B0FC-49FA77A2DB9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2753499F-0DC6-4EF1-B0FC-49FA77A2DB9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39D3CE96-C5D7-4C3B-8EEF-C95A2913754C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39D3CE96-C5D7-4C3B-8EEF-C95A2913754C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39D3CE96-C5D7-4C3B-8EEF-C95A2913754C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39D3CE96-C5D7-4C3B-8EEF-C95A2913754C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 		{C9C6BBDB-7539-40A9-95B4-2601415F8758} = {07CF3428-0449-4381-BD78-A1AB98F2BD9D}
 		{E6D01EF7-7E05-4104-8131-19671D028ED2} = {07CF3428-0449-4381-BD78-A1AB98F2BD9D}
 		{2753499F-0DC6-4EF1-B0FC-49FA77A2DB9B} = {6C67A032-F984-45CE-ABED-7BFDF1846F70}
+		{39D3CE96-C5D7-4C3B-8EEF-C95A2913754C} = {07CF3428-0449-4381-BD78-A1AB98F2BD9D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5B622A21-1A5C-4982-B4D6-72F492386BC1}
