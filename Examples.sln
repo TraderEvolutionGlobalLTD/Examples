@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IndicatorBuilderMTF", "Exam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibExample", "Examples\MutiTimeFrameExample\LibExample\LibExample.csproj", "{1FB22743-ABF9-4FAE-A055-ABF604DF8CCB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaveTrend Oscillator", "Indicators\WaveTrend Oscillator\WaveTrend Oscillator.csproj", "{7C19D20E-FA44-4740-9306-3C4AC33B9F8D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{1FB22743-ABF9-4FAE-A055-ABF604DF8CCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FB22743-ABF9-4FAE-A055-ABF604DF8CCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FB22743-ABF9-4FAE-A055-ABF604DF8CCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C19D20E-FA44-4740-9306-3C4AC33B9F8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C19D20E-FA44-4740-9306-3C4AC33B9F8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C19D20E-FA44-4740-9306-3C4AC33B9F8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C19D20E-FA44-4740-9306-3C4AC33B9F8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,6 +90,7 @@ Global
 		{FF231512-64E5-46CF-84C1-AD4D7AD41D7F} = {07CF3428-0449-4381-BD78-A1AB98F2BD9D}
 		{A59CF0B3-8B95-4A83-B916-EACA760C8193} = {FF231512-64E5-46CF-84C1-AD4D7AD41D7F}
 		{1FB22743-ABF9-4FAE-A055-ABF604DF8CCB} = {FF231512-64E5-46CF-84C1-AD4D7AD41D7F}
+		{7C19D20E-FA44-4740-9306-3C4AC33B9F8D} = {6C67A032-F984-45CE-ABED-7BFDF1846F70}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5B622A21-1A5C-4982-B4D6-72F492386BC1}
