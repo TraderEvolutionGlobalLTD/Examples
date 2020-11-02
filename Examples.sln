@@ -33,6 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Strategies", "Strategies", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubleBuy", "Strategies\DoubleBuy\DoubleBuy.csproj", "{40363167-87CF-4433-B38B-22A678BCA0C3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autotrend", "Indicators\Autotrend\Autotrend.csproj", "{3869DC96-6E70-4B82-BA87-F1C5231955DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{40363167-87CF-4433-B38B-22A678BCA0C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40363167-87CF-4433-B38B-22A678BCA0C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40363167-87CF-4433-B38B-22A678BCA0C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3869DC96-6E70-4B82-BA87-F1C5231955DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3869DC96-6E70-4B82-BA87-F1C5231955DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3869DC96-6E70-4B82-BA87-F1C5231955DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3869DC96-6E70-4B82-BA87-F1C5231955DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
