@@ -48,12 +48,12 @@ namespace Autotrend
 
         public int minRequiredBars;
 
-        PointForPlot curLeftSup, curRightSup, curLeftRes, curRightRes, nullPoint;
+        TimeValue curLeftSup, curRightSup, curLeftRes, curRightRes, nullPoint;
 
         public override void Init()
         {
             minRequiredBars = leftExmSide * 2 + Math.Max(rightExmSide, current) * 2;
-            nullPoint = new PointForPlot();
+            nullPoint = TimeValue.Empty;
         }
 
         public override void Update(TickStatus args)
@@ -75,7 +75,7 @@ namespace Autotrend
                         //--- Support Left Point
                         leftIndex = leftExmSide + 2;
                         for (; !isLowestLow(leftIndex, leftExmSide) && leftIndex < HistoryDataSeries.Count - 1 - minRequiredBars; leftIndex++);
-                            curLeftSup = new PointForPlot(getLow(leftIndex), HistoryDataSeries.GetTimeUtc(leftIndex));                       
+                            curLeftSup = new TimeValue( HistoryDataSeries.GetTimeUtc(leftIndex), getLow(leftIndex));                       
                         
                         //--- Support Right Point
                         rightIndex = current + 2;
@@ -87,19 +87,19 @@ namespace Autotrend
                         }
                         for (int tmpIndex = rightIndex - 1; tmpIndex < leftIndex; tmpIndex++)
                         {
-                            tmpDelta = (getLow(tmpIndex) - curLeftSup.Price) / (tmpIndex - leftIndex);
+                            tmpDelta = (getLow(tmpIndex) - curLeftSup.Value) / (tmpIndex - leftIndex);
                             if (tmpDelta > delta)
                             {
                                 delta = tmpDelta;
                                 rightIndex = tmpIndex;
                             }
                         }
-                        curRightSup = new PointForPlot(getLow(rightIndex), HistoryDataSeries.GetTimeUtc(rightIndex));
+                        curRightSup = new TimeValue(HistoryDataSeries.GetTimeUtc(rightIndex), getLow(rightIndex));
 
                         //--- Resistance Left Point
                         leftIndex = leftExmSide + 2;
                         for (; !isHighestHigh(leftIndex, leftExmSide) && leftIndex < HistoryDataSeries.Count - 1 - minRequiredBars; leftIndex++) ;
-                            curLeftRes = new PointForPlot(getHigh(leftIndex), HistoryDataSeries.GetTimeUtc(leftIndex));
+                            curLeftRes = new TimeValue(HistoryDataSeries.GetTimeUtc(leftIndex), getHigh(leftIndex));
 
                         //--- Resistance Right Point
                         rightIndex = current + 2;
@@ -110,14 +110,14 @@ namespace Autotrend
                         }
                         for (int tmpIndex = rightIndex - 1; tmpIndex < leftIndex; tmpIndex++)
                         {
-                            tmpDelta = (curLeftRes.Price - getHigh(tmpIndex)) / (tmpIndex - leftIndex);
+                            tmpDelta = (curLeftRes.Value - getHigh(tmpIndex)) / (tmpIndex - leftIndex);
                             if (tmpDelta > delta)
                             {
                                 delta = tmpDelta;
                                 rightIndex = tmpIndex;
                             }
                         }
-                        curRightRes = new PointForPlot(getHigh(rightIndex), HistoryDataSeries.GetTimeUtc(rightIndex));
+                        curRightRes = new TimeValue(HistoryDataSeries.GetTimeUtc(rightIndex), getHigh(rightIndex));
                         break;
 
                     case LINE_TYPE.EXM:
@@ -125,22 +125,22 @@ namespace Autotrend
                         //--- Support Right Point
                         rightIndex = rightExmSide + 2;
                         for (; !isLowestLow(rightIndex, rightExmSide) && rightIndex < HistoryDataSeries.Count - 1 - minRequiredBars; rightIndex++);
-                            curRightSup = new PointForPlot(getLow(rightIndex), HistoryDataSeries.GetTimeUtc(rightIndex));
+                            curRightSup = new TimeValue(HistoryDataSeries.GetTimeUtc(rightIndex), getLow(rightIndex));
 
                         //--- Support Left Point
                         leftIndex = rightIndex + leftExmSide;
                         for (; !isLowestLow(leftIndex, leftExmSide) && leftIndex < HistoryDataSeries.Count - 1 - minRequiredBars; leftIndex++);
-                            curLeftSup = new PointForPlot(getLow(leftIndex), HistoryDataSeries.GetTimeUtc(leftIndex));
+                            curLeftSup = new TimeValue(HistoryDataSeries.GetTimeUtc(leftIndex), getLow(leftIndex));
 
                         //--- Resistance Right Point
                         rightIndex = rightExmSide + 2;
                         for (; !isHighestHigh(rightIndex, rightExmSide) && rightIndex < HistoryDataSeries.Count - 1 - minRequiredBars; rightIndex++);
-                            curRightRes = new PointForPlot(getHigh(rightIndex), HistoryDataSeries.GetTimeUtc(rightIndex));
+                            curRightRes = new TimeValue(HistoryDataSeries.GetTimeUtc(rightIndex), getHigh(rightIndex));
 
                         //--- Resistance Left Point
                         leftIndex = rightIndex + leftExmSide;
                         for (; !isHighestHigh(leftIndex, leftExmSide) && leftIndex < HistoryDataSeries.Count - 1 - minRequiredBars; leftIndex++);
-                            curLeftRes = new PointForPlot(getHigh(leftIndex), HistoryDataSeries.GetTimeUtc(leftIndex));
+                            curLeftRes = new TimeValue(HistoryDataSeries.GetTimeUtc(leftIndex), getHigh(leftIndex));
                         //---
                         break;
                 }
@@ -150,15 +150,15 @@ namespace Autotrend
         {
             if (curLeftSup != nullPoint && curRightSup != nullPoint)
             {
-                var point1 = ChartSource.GetChartPoint(new TimeValue(curRightSup.Time, curRightSup.Price), ChartSource.FindWindow(this));
-                var point2 = ChartSource.GetChartPoint(new TimeValue(curLeftSup.Time, curLeftSup.Price), ChartSource.FindWindow(this));
+                var point1 = ChartSource.GetChartPoint(curRightSup, ChartSource.FindWindow(this));
+                var point2 = ChartSource.GetChartPoint(curLeftSup, ChartSource.FindWindow(this));
                 draw_beam(point1, point2, Lines[1].Color, args);
             }
 
             if (curLeftRes != nullPoint && curRightRes != nullPoint)
             {
-                var point1 = ChartSource.GetChartPoint(new TimeValue(curRightRes.Time, curRightRes.Price), ChartSource.FindWindow(this));
-                var point2 = ChartSource.GetChartPoint(new TimeValue(curLeftRes.Time, curLeftRes.Price), ChartSource.FindWindow(this));
+                var point1 = ChartSource.GetChartPoint(curRightRes, ChartSource.FindWindow(this));
+                var point2 = ChartSource.GetChartPoint(curLeftRes, ChartSource.FindWindow(this));
                 draw_beam(point1, point2, Lines[0].Color, args);
             }           
         }
@@ -223,40 +223,6 @@ namespace Autotrend
             }
             return true;
         }
-    }
-
-
-    public class PointForPlot
-    {     
-        private double price;
-        private DateTime time;
-
-        public PointForPlot() { }
-
-        public PointForPlot(double _price, DateTime _time) 
-        {
-            this.setPoint(_price, _time);
-        }
-
-        public static bool operator == (PointForPlot lhs, PointForPlot rhs)
-        {
-            return rhs.price == lhs.price && rhs.time == lhs.time; 
-        }
-
-        public static bool operator != (PointForPlot lhs, PointForPlot rhs)
-        {
-            return !(rhs.price == lhs.price && rhs.time == lhs.time); 
-        }
-
-        public void setPoint(double _price, DateTime _time) {
-            price = _price;
-            time = _time;
-        }
-
-        public double Price { get { return price; } }
-
-        public DateTime Time { get { return time; } }
-
     }
 
     public enum LINE_TYPE
