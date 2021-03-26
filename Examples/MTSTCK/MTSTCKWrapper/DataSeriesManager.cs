@@ -13,9 +13,11 @@ namespace MTSTCKWrapper
         public readonly string CrossPartialName = "CROSS";
         public ICustomData<double, double> CreateOrUpdateMA(PriceType type, int period, MAMode mode, HistoricalData historicalData)
         {
-            MAMode modeResult;
             ICustomData<double, double> result;
-            int findResult = MaDataSeries.FindIndex(x => Enum.TryParse(x.Name, out modeResult));
+
+            string name = mode.ToString() + period.ToString();
+
+            int findResult = MaDataSeries.FindIndex(x => x.Name == name);
 
             if (findResult != -1)
             {
@@ -24,7 +26,7 @@ namespace MTSTCKWrapper
             }
             else
             {
-                result = CreateAndFillMA(historicalData, mode, period, type);
+                result = CreateAndFillMA(historicalData, mode, period, type, name);
             }
 
             return result;
@@ -104,21 +106,21 @@ namespace MTSTCKWrapper
         private readonly List<ICustomData<double, bool>> CrossDataSeries = new List<ICustomData<double, bool>>();
 
         private readonly List<ICustomData<double, double>> CustomDataSeries = new List<ICustomData<double, double>>();
-        private ICustomData<double, double> CreateAndFillMA(HistoricalData currentData, MAMode MAMode, int period, PriceType type)
+        private ICustomData<double, double> CreateAndFillMA(HistoricalData currentData, MAMode MAMode, int period, PriceType type, string name)
         {
             switch (MAMode)
             {
                 case MAMode.SMA:
-                    MaDataSeries.Insert(0, new SMA(period));
+                    MaDataSeries.Insert(0, new SMA(period, name));
                     break;
                 case MAMode.EMA:
-                    MaDataSeries.Insert(0, new EMA(period));
+                    MaDataSeries.Insert(0, new EMA(period, name));
                     break;
                 case MAMode.SMMA:
-                    MaDataSeries.Insert(0, new SMMA(period));
+                    MaDataSeries.Insert(0, new SMMA(period, name));
                     break;
                 case MAMode.LWMA:
-                    MaDataSeries.Insert(0, new LWMA(period));
+                    MaDataSeries.Insert(0, new LWMA(period, name));
                     break;
             }
             (MaDataSeries[0] as DataSeries<double, double>).GetHistoricalData(currentData);

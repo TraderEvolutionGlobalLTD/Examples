@@ -1,6 +1,4 @@
 ﻿using TradeApi.Indicators;
-using TradeApi.History;
-using System;
 
 namespace MTSTCKWrapper.Helpers
 {

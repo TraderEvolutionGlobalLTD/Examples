@@ -3,7 +3,7 @@ namespace MTSTCKWrapper.Containers
 {
     internal class SMMA : DataSeries<double, double>
     {
-        public SMMA(int _smmaPeriod) : base("smma")
+        public SMMA(int _smmaPeriod, string name) : base(name)
         {
             this.smmaPeriod = _smmaPeriod;
             isFirstStart = true;

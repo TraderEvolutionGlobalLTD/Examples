@@ -1,6 +1,5 @@
 ﻿using MTSTCKWrapper;
 using MTSTCKWrapper.Core;
-using MTSTCKWrapper.Helpers;
 using Runtime.Script;
 using System.Drawing;
 using TradeApi.History;

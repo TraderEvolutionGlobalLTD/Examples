@@ -4,7 +4,7 @@ namespace MTSTCKWrapper.Containers
 {
     internal class LWMA : DataSeries<double, double>
     {
-        public LWMA(int _period) : base("LWMA")
+        public LWMA(int _period, string name) : base(name)
         {
             this.period = _period;
         }

@@ -3,7 +3,7 @@ namespace MTSTCKWrapper.Containers
 {
     internal class EMA : DataSeries<double, double>
     {
-        public EMA(int _emaPeriod) : base("EMA")
+        public EMA(int _emaPeriod, string name) : base(name)
         {
             this.emaPeriod = _emaPeriod;
             alpha = 2.0 / ((double)this.emaPeriod + 1.0);

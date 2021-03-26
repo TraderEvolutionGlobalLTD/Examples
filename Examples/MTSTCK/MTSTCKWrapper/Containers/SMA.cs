@@ -5,7 +5,7 @@ namespace MTSTCKWrapper.Containers
 {
     internal class SMA : DataSeries<double, double>
     {
-        public SMA(int _smaPeriod) : base("SMA")
+        public SMA(int _smaPeriod, string name) : base(name)
         {
             this.smaPeriod = _smaPeriod;
         }
