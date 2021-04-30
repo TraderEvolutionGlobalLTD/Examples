@@ -18,33 +18,33 @@ namespace BillWilliamsChaosTheory
             #endregion
 
             Lines.Set("JAW");
-            Lines["JAW"].Color = Color.Green;
+            Lines["JAW"].Color = Color.Blue;
 
             Lines.Set("TEETH");
             Lines["TEETH"].Color = Color.Red;
 
             Lines.Set("LIPS");
-            Lines["LIPS"].Color = Color.Blue;
+            Lines["LIPS"].Color = Color.Green;
 
             Lines.Set("Fractal up");
-            Lines["Fractal up"].Color = Color.Red;
+            Lines["Fractal up"].Color = Color.White;
             Lines["Fractal up"].Style = LineStyle.Symbol;
-            Lines["Fractal up"].ArrowCode = 234;
+            Lines["Fractal up"].ArrowCode = 217;
 
             Lines.Set("Fractal down");
-            Lines["Fractal down"].Color = Color.Red;
+            Lines["Fractal down"].Color = Color.White;
             Lines["Fractal down"].Style = LineStyle.Symbol;
-            Lines["Fractal down"].ArrowCode = 233;
+            Lines["Fractal down"].ArrowCode = 218;
 
             Lines.Set("Ideal Fractal up");
             Lines["Ideal Fractal up"].Color = Color.Gold;
             Lines["Ideal Fractal up"].Style = LineStyle.Symbol;
-            Lines["Ideal Fractal up"].ArrowCode = 234;
+            Lines["Ideal Fractal up"].ArrowCode = 217;
 
             Lines.Set("Ideal Fractal down");
             Lines["Ideal Fractal down"].Color = Color.Gold;
             Lines["Ideal Fractal down"].Style = LineStyle.Symbol;
-            Lines["Ideal Fractal down"].ArrowCode = 233;
+            Lines["Ideal Fractal down"].ArrowCode = 218;
 
             Lines.Set("Resistance");
             Lines["Resistance"].Color = Color.Purple;
@@ -68,7 +68,7 @@ namespace BillWilliamsChaosTheory
         [ComboboxItem("Exponential", MAMode.EMA)]
         [ComboboxItem("Modified", MAMode.SMMA)]
         [ComboboxItem("Linear Weighted", MAMode.LWMA)]
-        public MAMode JawMAType = MAMode.SMA;
+        public MAMode JawMAType = MAMode.SMMA;
 
         [InputParameter(InputType.Combobox, "Sources prices for Jaw MA", 2)]
         [ComboboxItem("Close", PriceType.Close)]
@@ -78,7 +78,7 @@ namespace BillWilliamsChaosTheory
         [ComboboxItem("Typical", PriceType.Typical)]
         [ComboboxItem("Medium", PriceType.Medium)]
         [ComboboxItem("Weighted", PriceType.Weighted)]
-        public PriceType JawSourcePrice = PriceType.Close;
+        public PriceType JawSourcePrice = PriceType.Medium;
 
         [InputParameter(InputType.Numeric, "Period of Jaw MA", 3)]
         [SimpleNumeric(1D, 99999D)]
@@ -317,7 +317,7 @@ namespace BillWilliamsChaosTheory
 
                     var alligatorUpTrend = (Lines["LIPS"].GetValue(1) > Lines["TEETH"].GetValue(1)) && (Lines["TEETH"].GetValue(1) > (Lines["JAW"].GetValue(1)));
                     var alligatorDownTrend = (Lines["JAW"].GetValue(1) > Lines["TEETH"].GetValue(1)) && (Lines["TEETH"].GetValue(1) > Lines["LIPS"].GetValue(1));
-                    var alligatorAwake = (alligatorUpTrend && alligatorDownTrend);
+                    var alligatorAwake = (alligatorUpTrend || alligatorDownTrend);
 
                     // Long
                     var acAboveZeroLong = (ac.GetValue(2) > 0) && (ac.GetValue(1) > 0) && (ac.GetValue(2) < ac.GetValue(1));
@@ -326,7 +326,7 @@ namespace BillWilliamsChaosTheory
                     var longWilliamR = RPercentage[1] > -50;
                     var breakoutUpFractal = (Lines["Resistance"].GetValue() <= HLC3(1)) && (Lines["Resistance"].GetValue() >= Low(1)) && (Lines["Resistance"].GetValue() < Close(1)) && (Lines["Resistance"].GetValue() > Open(1)) && !fakeMFI[1];
 
-                    var longCondition = (acAboveZeroLong && acBelowZeroLong && acBreakoutLong) && breakoutUpFractal && longWilliamR && alligatorAwake;
+                    var longCondition = (acAboveZeroLong || acBelowZeroLong || acBreakoutLong) && breakoutUpFractal && longWilliamR && alligatorAwake;
 
                     // Short
                     var acBelowZeroShort = (ac.GetValue(2) < 0) && (ac.GetValue(1) < 0) && (ac.GetValue(2) > ac.GetValue(1));
@@ -335,7 +335,7 @@ namespace BillWilliamsChaosTheory
                     var shortWilliamR = RPercentage[1] < -50;
                     var breakoutDownFractal = (Lines["Support"].GetValue() >= HLC3(1)) && (Lines["Support"].GetValue() <= High(1)) && (Lines["Support"].GetValue() > Close(1)) && (Lines["Support"].GetValue() < Open(1)) && !fakeMFI[1];
 
-                    var shortCondition = (acBelowZeroShort && acAboveZeroShort && acBreakoutShort) && breakoutDownFractal && shortWilliamR && alligatorAwake;
+                    var shortCondition = (acBelowZeroShort || acAboveZeroShort || acBreakoutShort) && breakoutDownFractal && shortWilliamR && alligatorAwake;
 
 
                     if (longCondition)
@@ -366,9 +366,10 @@ namespace BillWilliamsChaosTheory
 
         private void drawBarStamp(string text, Color color, PrimitiveFigure primitiveFigure, bool up = false, double offset = 1)
         {
-            offset = offset * HistoryDataSeries.HistoricalRequest.Instrument.MinimalTickSize;
+            var tickSize = HistoryDataSeries.HistoricalRequest.Instrument.MinimalTickSize;
+            offset = offset * tickSize;
             BarStamps.Set(new BarStampPrimitiveFigure(color, 0, up? High() + mfiOffsetPrimitive + offset : Low() - mfiOffsetPrimitive - offset, primitiveFigure));
-            BarStamps.Set(new BarStampText(text, new Font("Arial", 10), color, Color.Transparent, 0, up? High() + mfiOffsetText + offset : Low() - mfiOffsetText - offset*4));
+            BarStamps.Set(new BarStampText(text, new Font("Arial", 10), color, Color.Transparent, 0, up? High() + mfiOffsetText + offset + 3 * tickSize : Low() - mfiOffsetText - offset - 10 * tickSize));
         }
 
         public static bool[] ShiftLeft(bool[] array)
