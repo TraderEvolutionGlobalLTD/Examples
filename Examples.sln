@@ -47,6 +47,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MTSTCKWrapperLibExample", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AltiZeka_STP", "Examples\AltiZeka_STP\AltiZeka_STP.csproj", "{3B140A81-33B9-486B-B8AF-CE7C9A0D3A65}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsePythonExample", "Examples\UsePythonExample\UsePythonExample.csproj", "{8199BDF0-B92A-4123-961E-C0673F62EC32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,10 @@ Global
 		{3B140A81-33B9-486B-B8AF-CE7C9A0D3A65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B140A81-33B9-486B-B8AF-CE7C9A0D3A65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B140A81-33B9-486B-B8AF-CE7C9A0D3A65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8199BDF0-B92A-4123-961E-C0673F62EC32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8199BDF0-B92A-4123-961E-C0673F62EC32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8199BDF0-B92A-4123-961E-C0673F62EC32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8199BDF0-B92A-4123-961E-C0673F62EC32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -140,6 +146,7 @@ Global
 		{58C51C49-71F3-4983-B0CB-B79988190C5E} = {ED780294-E277-40D7-B506-5DFDCD87F72E}
 		{9050CCE5-4109-4134-8F76-5FE548013F22} = {58C51C49-71F3-4983-B0CB-B79988190C5E}
 		{3B140A81-33B9-486B-B8AF-CE7C9A0D3A65} = {07CF3428-0449-4381-BD78-A1AB98F2BD9D}
+		{8199BDF0-B92A-4123-961E-C0673F62EC32} = {07CF3428-0449-4381-BD78-A1AB98F2BD9D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5B622A21-1A5C-4982-B4D6-72F492386BC1}
