@@ -56,10 +56,10 @@ namespace MTSTCKWrapper.Core
 
             return result;
         }
-        public ReferenceSeries Ref(ICustomData<double, double> newRefSeries, int index) 
+        public ReferenceSeries Ref(ICustomData<double, double> newRefSeries, int index)
         {
             var result = new ReferenceSeries(newRefSeries.Name);
-            result.Value = DataSeriesManager.GetCustom(newRefSeries) != null && DataSeriesManager.GetCustom(newRefSeries).Count > index ? DataSeriesManager.GetCustom(newRefSeries).GetValueByIndex(index): -1;
+            result.Value = DataSeriesManager.GetCustom(newRefSeries) != null && DataSeriesManager.GetCustom(newRefSeries).Count > Math.Abs(index) ? DataSeriesManager.GetCustom(newRefSeries).GetValueByIndex(Math.Abs(index)) : -1;
 
             return result;
         }
@@ -73,6 +73,20 @@ namespace MTSTCKWrapper.Core
         public ICustomData<double, double> Mov(PriceType type, int period, MAMode mode) 
         {
             var result =  DataSeriesManager.CreateOrUpdateMA(type, period, mode, HistoryDataSeries);
+
+            return result;
+        }
+
+        public ICustomData<double, double> Mov(double value, int period, MAMode mode)
+        {
+            var result = DataSeriesManager.CreateOrUpdateMA(value, period, mode, HistoryDataSeries);
+
+            return result;
+        }
+
+        public ICustomData<double, double> Mom(int period)
+        {
+            var result = DataSeriesManager.CreateOrUpdateMomentum(period, HistoryDataSeries);
 
             return result;
         }

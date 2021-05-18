@@ -17,12 +17,12 @@ namespace MTSTCKWrapper
 
             string name = mode.ToString() + period.ToString();
 
-            int findResult = MaDataSeries.FindIndex(x => x.Name == name);
+            int findResult = BuiltInIndicatorDataSeries.FindIndex(x => x.Name == name);
 
             if (findResult != -1)
             {
-                MaDataSeries[findResult].GetValue(historicalData.GetValue(type, 0));
-                result = MaDataSeries[findResult];
+                BuiltInIndicatorDataSeries[findResult].GetValue(historicalData.GetValue(type, 0));
+                result = BuiltInIndicatorDataSeries[findResult];
             }
             else
             {
@@ -31,6 +31,51 @@ namespace MTSTCKWrapper
 
             return result;
         }
+
+        public ICustomData<double, double> CreateOrUpdateMA(double value, int period, MAMode mode, HistoricalData historicalData)
+        {
+            ICustomData<double, double> result;
+
+            string name = mode.ToString() + period.ToString();
+
+            int findResult = BuiltInIndicatorDataSeries.FindIndex(x => x.Name == name);
+
+            if (findResult != -1)
+            {
+                BuiltInIndicatorDataSeries[findResult].GetValue(value);
+                result = BuiltInIndicatorDataSeries[findResult];
+            }
+            else
+            {
+                result = CreateMA(historicalData, mode, period, name, value);
+            }
+
+            return result;
+        }
+
+
+        public ICustomData<double, double> CreateOrUpdateMomentum(int period, HistoricalData historicalData)
+        {
+            ICustomData<double, double> result;
+
+            string name = "Momentum" + period.ToString();
+
+            int findResult = BuiltInIndicatorDataSeries.FindIndex(x => x.Name == name);
+
+            if (findResult != -1)
+            {
+                BuiltInIndicatorDataSeries[findResult].GetValue(0);
+                result = BuiltInIndicatorDataSeries[findResult];
+            }
+            else
+            {
+                result = CreateMomentum(historicalData, period, name, 0);
+            }
+
+            return result;
+        }
+
+
         public ICustomData<double, bool> CreateOrUpdateCross(HistoricalData currentData, ICustomData<double, double> a, ReferenceSeries b, CrossDirection direction)
         {
             ICustomData<double, bool> result;
@@ -66,11 +111,11 @@ namespace MTSTCKWrapper
         }
         public ICustomData<double, double> GetCustom(ICustomData<double, double> newRefSeries)
         {
-            var refIndex = CustomDataSeries.FindIndex(x => x.Name == newRefSeries.Name);
+            var refIndex = this.getAllNumericSerries().FindIndex(x => x.Name == newRefSeries.Name);
 
             if (refIndex != -1)
             {
-                return CustomDataSeries[refIndex];
+                return getAllNumericSerries()[refIndex];
             }
 
             return null;
@@ -78,7 +123,7 @@ namespace MTSTCKWrapper
         internal void AutoUpdate()
         {
             this.CrossDataSeries.ForEach(x => x.GetValue(Double.NaN));
-            this.MaDataSeries.ForEach(x => x.GetValue(Double.NaN));
+            this.BuiltInIndicatorDataSeries.ForEach(x => x.GetValue(Double.NaN));
             this.CustomDataSeries.ForEach(x => x.GetValue(Double.NaN));
         }
         public int LastCross(string seriesName)
@@ -98,44 +143,68 @@ namespace MTSTCKWrapper
         }
         public List<ICustomData<double, double>> getAllNumericSerries()
         {
-            return MaDataSeries.Concat(CustomDataSeries).ToList();
+            return BuiltInIndicatorDataSeries.Concat(CustomDataSeries).ToList();
         }
 
-        private readonly List<ICustomData<double, double>> MaDataSeries = new List<ICustomData<double, double>>();
+        private readonly List<ICustomData<double, double>> BuiltInIndicatorDataSeries = new List<ICustomData<double, double>>();
 
         private readonly List<ICustomData<double, bool>> CrossDataSeries = new List<ICustomData<double, bool>>();
 
         private readonly List<ICustomData<double, double>> CustomDataSeries = new List<ICustomData<double, double>>();
+
         private ICustomData<double, double> CreateAndFillMA(HistoricalData currentData, MAMode MAMode, int period, PriceType type, string name)
+        {
+            this.AppendMa(currentData, MAMode, period, name);
+
+            FillMA(currentData, type);
+
+            BuiltInIndicatorDataSeries[0].GetValue(currentData.GetValue(type, 0));
+
+            return BuiltInIndicatorDataSeries[0];
+        }
+        private void AppendMa(HistoricalData currentData, MAMode MAMode, int period, string name) 
         {
             switch (MAMode)
             {
                 case MAMode.SMA:
-                    MaDataSeries.Insert(0, new SMA(period, name));
+                    BuiltInIndicatorDataSeries.Insert(0, new SMA(period, name));
                     break;
                 case MAMode.EMA:
-                    MaDataSeries.Insert(0, new EMA(period, name));
+                    BuiltInIndicatorDataSeries.Insert(0, new EMA(period, name));
                     break;
                 case MAMode.SMMA:
-                    MaDataSeries.Insert(0, new SMMA(period, name));
+                    BuiltInIndicatorDataSeries.Insert(0, new SMMA(period, name));
                     break;
                 case MAMode.LWMA:
-                    MaDataSeries.Insert(0, new LWMA(period, name));
+                    BuiltInIndicatorDataSeries.Insert(0, new LWMA(period, name));
                     break;
             }
-            (MaDataSeries[0] as DataSeries<double, double>).GetHistoricalData(currentData);
+            (BuiltInIndicatorDataSeries[0] as DataSeries<double, double>).GetHistoricalData(currentData);
+        }
+        private ICustomData<double, double> CreateMA(HistoricalData currentData, MAMode MAMode, int period, string name, double value)
+        {
+            this.AppendMa(currentData, MAMode, period, name);
 
-            FillMA(currentData, type);
+            BuiltInIndicatorDataSeries[0].GetValue(value);
 
-            MaDataSeries[0].GetValue(currentData.GetValue(type, 0));
+            return BuiltInIndicatorDataSeries[0];
+        }
 
-            return MaDataSeries[0];
+        private ICustomData<double, double> CreateMomentum(HistoricalData currentData, int period, string name, double value)
+        {
+            BuiltInIndicatorDataSeries.Insert(0, new MOM(period, name));
+
+            (BuiltInIndicatorDataSeries[0] as DataSeries<double, double>).GetHistoricalData(currentData);
+
+            BuiltInIndicatorDataSeries[0].GetValue(value);
+
+            return BuiltInIndicatorDataSeries[0];
         }
         private void FillMA(HistoricalData historicalData, PriceType type)
         {
             for (int i = 0; i < historicalData.Count; i++)
             {
-                (MaDataSeries[0] as DataSeries<double, double>).GetHistoryValue(historicalData.GetValue(type, i), i);
+                (BuiltInIndicatorDataSeries[0] as DataSeries<double, double>).GetHistoryValue(historicalData.GetValue(type, i), i);
             }
         }
         private ICustomData<double, bool> CreateAndFillCross(HistoricalData currentData, ICustomData<double, double> a, ReferenceSeries b, CrossDirection direction)

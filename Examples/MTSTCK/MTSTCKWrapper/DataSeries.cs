@@ -41,6 +41,7 @@ namespace MTSTCKWrapper
             }
             return _dataList[index];
         }
+        internal HistoricalData CurrentData { get { return _currentData; } }
         internal abstract T2 GetCustomValue(T1 value, int index);
 
         protected List<T2> _dataList = new List<T2>();
