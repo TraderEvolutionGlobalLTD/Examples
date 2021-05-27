@@ -44,22 +44,22 @@ namespace MTSTKWrapperLibExampleV2
         public override void OnUpdate(TickStatus args)
         {
             //using generic custom entity, which could be used for any build-in TE indicator with proper dataseries synchronization
-            MTST_momentum.GetValue(momentum.GetValue());            
+            MTST_momentum.GetValue(momentum.GetValue());
 
-            var mov = Mov(MTST_momentum.GetValueByIndex(0) - Ref(MTST_momentum, 1).Value, 66, MAMode.EMA);
+            var ema = Mov(MTST_momentum.GetValueByIndex(0) - Ref(MTST_momentum, 1).Value, 66, MAMode.EMA);
 
-            var mov1 = Mov(mov.GetValueByIndex(0), 3, MAMode.SMA);
+            var sma = Mov(ema.GetValueByIndex(0), 3, MAMode.SMA);
 
-            Lines["momentum1"].SetValue(mov1.GetValueByIndex(0));
+            Lines["momentum1"].SetValue(sma.GetValueByIndex(0));
 
             //using Mom class, only for momentum calculation
-            var mom = Mom(momPeriod);
+            var newMomentum = Mom(momPeriod);
 
-            var movTest = Mov(mom.GetValueByIndex(0) - Ref(mom, 1).Value, 66, MAMode.EMA);
+            ema = Mov(newMomentum.GetValueByIndex(0) - Ref(newMomentum, 1).Value, 66, MAMode.EMA);
 
-            var movTest1 = Mov(movTest.GetValueByIndex(0), 3, MAMode.SMA);
+            sma = Mov(ema.GetValueByIndex(0), 3, MAMode.SMA);
 
-            Lines["momentum2"].SetValue(movTest1.GetValueByIndex(0));
+            Lines["momentum2"].SetValue(sma.GetValueByIndex(0));
 
         }
     }
