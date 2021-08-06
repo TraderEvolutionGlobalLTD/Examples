@@ -10,7 +10,8 @@ namespace MySqlExample
     /// <summary>
     /// Indicator
     /// After complile copy MySqlExample.dll, MySqlConnector.dll, System.Threading.Tasks.Extensions.dll to folder Scripts\Indicators
-    /// Somtimes occurrs exception with System.Memory.dll
+    /// (and System.Memory.dll) if this dll doesn't present in app folder
+    /// Somtimes occurrs exception with System.Memory.dll present in app folder
     /// In this case try to edit TreadeTerminal.config to add redirect to newest version System.Memory.dll
     /// <dependentAssembly>
     ///     <assemblyIdentity name = "System.Memory" publicKeyToken="cc7b13ffcd2ddd51" culture="neutral"/>
