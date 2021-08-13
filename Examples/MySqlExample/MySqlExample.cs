@@ -1,7 +1,10 @@
-﻿using MySqlConnector;
+﻿﻿﻿﻿﻿﻿﻿﻿using MySqlConnector;
 using Runtime.Script;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using TradeApi.Indicators;
 
@@ -10,12 +13,16 @@ namespace MySqlExample
     /// <summary>
     /// Indicator
     /// After complile copy MySqlExample.dll, MySqlConnector.dll, System.Threading.Tasks.Extensions.dll to folder Scripts\Indicators
-    /// (and System.Memory.dll) if this dll doesn't present in app folder
-    /// Somtimes occurrs exception with System.Memory.dll present in app folder
+    /// (and System.Memory.dll, System.Buffers.dll) if this dll doesn't present in app folder
+    /// Somtimes occurrs exception with System.Memory.dll/System.Buffers.dll present in app folder
     /// In this case try to edit TreadeTerminal.config to add redirect to newest version System.Memory.dll
     /// <dependentAssembly>
     ///     <assemblyIdentity name = "System.Memory" publicKeyToken="cc7b13ffcd2ddd51" culture="neutral"/>
     ///     <bindingRedirect oldVersion = "0.0.0.0-4.0.1.1" newVersion="4.0.1.1"/>
+    /// </dependentAssembly>
+    /// <dependentAssembly>
+    ///     <assemblyIdentity name = "System.Buffers" publicKeyToken="cc7b13ffcd2ddd51" culture="neutral"/>
+    ///     <bindingRedirect oldVersion = "0.0.0.0-4.0.4.0" newVersion="4.0.3.0"/>
     /// </dependentAssembly>
     /// </summary>
     public class MySqlExample : IndicatorBuilder
@@ -63,7 +70,7 @@ namespace MySqlExample
         {
 
         }
-        public async void WorkingWithDatabase()
+        public void WorkingWithDatabase()
         {
             //connection data
             var builder = new MySqlConnectionStringBuilder
@@ -78,33 +85,33 @@ namespace MySqlExample
             using (var conn = new MySqlConnection(builder.ConnectionString))
             {
                 Notification.Print("Opening connection");
-                await conn.OpenAsync();
+                conn.Open();
 
                 /*working with the database here
                 (reading, writing, etc.)*/
-                await CreateTableAndInsertDataAsync(conn);
-                await ReadDataFromDatabaseAsync(conn);
-                await DeleteDataFromDatabaseAsync(conn);
-                await ReadDataFromDatabaseAsync(conn);
+                CreateTableAndInsertData(conn);
+                ReadDataFromDatabase(conn);
+                DeleteDataFromDatabase(conn);
+                ReadDataFromDatabase(conn);
                 // connection will be closed by the 'using' block
                 Notification.Print("Closing connection");
             }
         }
 
-        public async Task CreateTableAndInsertDataAsync(MySqlConnection conn)
+        public void CreateTableAndInsertData(MySqlConnection conn)
         {
             using (var command = conn?.CreateCommand())
             {
                 //command to drop a table named "inventory" if it exists
                 command.CommandText = "DROP TABLE IF EXISTS inventory;";
                 //command execution
-                await command.ExecuteNonQueryAsync();
+                command.ExecuteNonQuery();
                 Notification.Print("Finished dropping table (if existed)");
 
                 //command to create a table named "inventory"
                 command.CommandText = "CREATE TABLE inventory (id serial PRIMARY KEY, name VARCHAR(50), quantity INTEGER);";
                 //command execution
-                await command.ExecuteNonQueryAsync();
+                command.ExecuteNonQuery();
                 Notification.Print("Finished creating table");
 
                 //command to insert an item into a table
@@ -120,22 +127,22 @@ namespace MySqlExample
                 command.Parameters.AddWithValue("@quantity3", 100);
 
                 //command execution
-                int rowCount = await command.ExecuteNonQueryAsync();
+                int rowCount = command.ExecuteNonQuery();
                 Notification.Print(String.Format("Number of rows inserted={0}", rowCount));
             }
         }
 
-        public async Task ReadDataFromDatabaseAsync(MySqlConnection conn)
+        public void ReadDataFromDatabase(MySqlConnection conn)
         {
             using (var command = conn.CreateCommand())
             {
                 //command to select all data from a table
                 command.CommandText = "SELECT * FROM inventory;";
 
-                using (var reader = await command.ExecuteReaderAsync())
+                using (var reader =  command.ExecuteReader())
                 {
                     //read data until the method returns false
-                    while (await reader.ReadAsync())
+                    while (reader.Read())
                     {
                         Notification.Print(string.Format(
                             "Reading from table=({0}, {1}, {2})",
@@ -147,7 +154,7 @@ namespace MySqlExample
             }
         }
 
-        public async Task DeleteDataFromDatabaseAsync(MySqlConnection conn)
+        public void DeleteDataFromDatabase(MySqlConnection conn)
         {
             using (var command = conn.CreateCommand())
             {
@@ -158,7 +165,7 @@ namespace MySqlExample
                 command.Parameters.AddWithValue("@name", "orange");
 
                 //command execution
-                int rowCount = await command.ExecuteNonQueryAsync();
+                int rowCount = command.ExecuteNonQuery();
                 Notification.Print(String.Format("Number of rows deleted={0}", rowCount));
             }
         }
