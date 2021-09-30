@@ -49,15 +49,21 @@ namespace PythonInstrumentStats
             if (resultJson != null) {
 
                 var str = "";
-                
-                for (int i = 0; i < resultJson.columns.Count; i++)
-                {
-                    string row = resultJson.columns[i].Trim();
-                    string data = resultJson.data[0][i].Trim();
 
-                    str += "\n" + row + ":  " + data;
+                if (resultJson.data != null && resultJson.data.Count > 0)
+                {
+                    for (int i = 0; i < resultJson.columns.Count; i++)
+                    {
+                        string row = resultJson.columns[i].Trim();
+                        string data = resultJson.data[0][i].Trim();
+
+                        str += "\n" + row + ":  " + data;
+                    }
+                    Notification.Comment(str);
                 }
-                Notification.Comment(str);
+                else {
+                    Notification.Comment("No statistic for selected instrument");
+                }
             }
             
         }
